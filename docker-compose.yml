@@ -1,0 +1,18 @@
+postgres:
+  image: postgres
+rattic:
+  build: .
+  links:
+  - postgres
+  environment:
+  - SECRETKEY=set_to_something_else_when_deploying
+nginx:
+  image: nginx
+  links:
+  - rattic
+  volumes_from:
+  - rattic
+  volumes:
+  - ./rattic.nginx:/etc/nginx/conf.d/default.conf
+  ports:
+  - 8000:80
