@@ -50,7 +50,7 @@ RUN apt-get -q update && \
     zlib1g-dev && \
     apt-get clean && \
     rm -f /var/lib/apt/lists/*_* && \
-    curl -s -L -o /opt/rattic.tar.gz "${RATTIC_URL}" && \
+    curl -sSL -o /opt/rattic.tar.gz "${RATTIC_URL}" && \
     mkdir -p /opt/rattic && \
     tar xzCf /opt/rattic /opt/rattic.tar.gz  --strip-components=1 && \
     rm -f /opt/rattic.tar.gz && \
