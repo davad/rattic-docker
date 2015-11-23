@@ -16,10 +16,11 @@
 : "${LDAP_STARTTLS:=false}"
 : "${LDAP_REQCERT:=false}"
 : "${LDAP_BASE:=dc=example,dc=com}"
-: "${LDAP_USERBASE:=ou=People,$LDAP_BASE}"
+: "${LDAP_USERBASE:=cn=users,cn=accounts,$LDAP_BASE}"
 : "${LDAP_USERFILTER:=(uid=%(user)s)}"
-: "${LDAP_GROUPBASE:=ou=Groups,$LDAP_BASE}"
-: "${LDAP_GROUPFILTER:=(objectClass=posixGroup)}"
+: "${LDAP_GROUPBASE:=cn=groups,cn=accounts,$LDAP_BASE}"
+: "${LDAP_GROUPFILTER:=(objectClass=groupofnames)}"
+: "${LDAP_GROUPTYPE:=GroupOfNamesType}"
 : "${LDAP_USERFIRSTNAME:=givenName}"
 : "${LDAP_USERLASTNAME:=sn}"
 
@@ -40,7 +41,15 @@ host = $POSTGRES_HOSTNAME
 port = $POSTGRES_PORT
 name = $POSTGRES_DBNAME
 user = $POSTGRES_USERNAME
+EOF
 
+if [ -n "$POSTGRES_PASSWORD" ]; then
+cat >> /opt/rattic/conf/local.conf <<EOF
+password = $POSTGRES_PASSWORD
+EOF
+fi
+
+cat >> /opt/rattic/conf/local.conf <<EOF
 [ldap]
 pwchange = false
 uri = $LDAP_URI
@@ -50,6 +59,7 @@ userbase = $LDAP_USERBASE
 userfilter = $LDAP_USERFILTER
 groupbase = $LDAP_GROUPBASE
 groupfilter = $LDAP_GROUPFILTER
+grouptype = $LDAP_GROUPTYPE
 userfirstname = $LDAP_USERFIRSTNAME
 userlastname = $LDAP_USERLASTNAME
 EOF
