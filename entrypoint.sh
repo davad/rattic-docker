@@ -44,12 +44,12 @@ user = $POSTGRES_USERNAME
 EOF
 
 if [ -n "$POSTGRES_PASSWORD" ]; then
-cat >> /opt/rattic/conf/local.conf <<EOF
+cat >> /opt/rattic/conf/local.cfg <<EOF
 password = $POSTGRES_PASSWORD
 EOF
 fi
 
-cat >> /opt/rattic/conf/local.conf <<EOF
+cat >> /opt/rattic/conf/local.cfg <<EOF
 [ldap]
 pwchange = false
 uri = $LDAP_URI
