@@ -5,6 +5,9 @@
 : "${POSTGRES_PORT_5432_TCP_PORT:=5432}"
 
 # configration for rattic
+: "${DEBUG:=false}"
+: "${LOGLEVEL:=ERROR}"
+: "${HOSTNAME:=localhost}"
 : "${TIMEZONE:=UTC}"
 : "${SECRETKEY:=areallybadsecretkeypleasechangebeforeusinginproduction}"
 : "${PASSWORD_EXPIRY_DAYS:=360}"
@@ -26,8 +29,9 @@
 
 cat > /opt/rattic/conf/local.cfg <<EOF
 [ratticweb]
-debug = False
-loglevel = ERROR
+debug = $DEBUG
+loglevel = $LOGLEVEL
+hostname = $HOSTNAME
 timezone = $TIMEZONE
 secretkey = $SECRETKEY
 passwordexpirydays = $PASSWORD_EXPIRY_DAYS
@@ -80,7 +84,7 @@ fi
 
 cd /opt/rattic
 # for debugging config
-cat conf/local.cfg
+[ 'false' != "$DEBUG" ] && cat conf/local.cfg
 
 case "$1" in
     deploy)

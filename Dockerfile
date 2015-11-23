@@ -8,6 +8,9 @@ ENV DEBIAN_FRONTEND="noninteractive" \
 # possible configs for rattic, check out entrypoint.sh
     TIMEZONE="" \
     SECRETKEY="" \
+    DEBUG="" \
+    LOGLEVEL="" \
+    HOSTNAME="" \
     PASSWORD_EXPIRY_DAYS="" \
     POSTGRES_HOSTNAME="" \
     POSTGRES_PORT="" \
