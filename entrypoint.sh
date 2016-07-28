@@ -1,9 +1,5 @@
 #!/bin/sh -ue
 
-# should be exported by linked postgres image
-: "${POSTGRES_PORT_5432_TCP_ADDR:=postgres}"
-: "${POSTGRES_PORT_5432_TCP_PORT:=5432}"
-
 # configration for rattic
 : "${DEBUG:=false}"
 : "${LOGLEVEL:=ERROR}"
@@ -11,10 +7,10 @@
 : "${TIMEZONE:=UTC}"
 : "${SECRETKEY:=areallybadsecretkeypleasechangebeforeusinginproduction}"
 : "${PASSWORD_EXPIRY_DAYS:=360}"
-: "${POSTGRES_HOSTNAME:=$POSTGRES_PORT_5432_TCP_ADDR}"
-: "${POSTGRES_PORT:=$POSTGRES_PORT_5432_TCP_PORT}"
-: "${POSTGRES_DBNAME:=postgres}"
-: "${POSTGRES_USERNAME:=postgres}"
+: "${DB_HOSTNAME:=db}"
+: "${DB_PORT:=3306}"
+: "${DB_DBNAME:=rattic}"
+: "${DB_USERNAME:=rattic}"
 : "${LDAP_URI:=ldap://ldap}"
 : "${LDAP_STARTTLS:=false}"
 : "${LDAP_REQCERT:=false}"
@@ -40,16 +36,16 @@ passwordexpirydays = $PASSWORD_EXPIRY_DAYS
 static = /opt/rattic/static
 
 [database]
-engine = django.db.backends.postgresql_psycopg2
-host = $POSTGRES_HOSTNAME
-port = $POSTGRES_PORT
-name = $POSTGRES_DBNAME
-user = $POSTGRES_USERNAME
+engine = django.db.backends.mysql
+host = $DB_HOSTNAME
+port = $DB_PORT
+name = $DB_DBNAME
+user = $DB_USERNAME
 EOF
 
-if [ -n "$POSTGRES_PASSWORD" ]; then
+if [ -n "$DB_PASSWORD" ]; then
 cat >> /opt/rattic/conf/local.cfg <<EOF
-password = $POSTGRES_PASSWORD
+password = $DB_PASSWORD
 EOF
 fi
 

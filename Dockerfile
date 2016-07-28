@@ -12,11 +12,11 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     LOGLEVEL="" \
     HOSTNAME="" \
     PASSWORD_EXPIRY_DAYS="" \
-    POSTGRES_HOSTNAME="" \
-    POSTGRES_PORT="" \
-    POSTGRES_DBNAME="" \
-    POSTGRES_USERNAME="" \
-    POSTGRES_PASSWORD="" \
+    DB_HOSTNAME="" \
+    DB_PORT="" \
+    DB_DBNAME="" \
+    DB_USERNAME="" \
+    DB_PASSWORD="" \
     LDAP_URI="" \
     LDAP_STARTTLS="" \
     LDAP_REQCERT="" \
@@ -40,6 +40,8 @@ RUN apt-get -q update && \
     curl \
     gettext \
     libjs-jquery \
+    mysql-client \
+    libmysqlclient-dev \
     python \
     python-crypto \
     python-dev \
@@ -49,8 +51,8 @@ RUN apt-get -q update && \
     python-lxml \
     python-markdown \
     python-mimeparse \
+    python-mysqldb \
     python-pip \
-    python-psycopg2 \
     python-pyasn1 \
     zlib1g-dev && \
     apt-get clean && \
@@ -61,7 +63,7 @@ RUN apt-get -q update && \
     rm -f /opt/rattic.tar.gz && \
     cd /opt/rattic && \
     mkdir static && \
-    pip install -r requirements-pgsql.txt && \
+    pip install -r requirements-mysql.txt && \
     pip install gunicorn && \
     cd /usr/local/lib/python2.7/dist-packages && \
     rm -rf djcelery/migrations kombu/transport/django/migrations && \

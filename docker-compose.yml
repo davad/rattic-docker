@@ -1,11 +1,19 @@
-postgres:
-  image: postgres
+db:
+  image: mariadb
+  environment:
+    - MYSQL_DATABASE=rattic
+    - MYSQL_USER=rattic
+    - MYSQL_PASSWORD=rattic
+    - MYSQL_RANDOM_ROOT_PASSWORD=yes
 rattic:
   build: .
   links:
-  - postgres
+  - db
   environment:
   - SECRETKEY=set_to_something_else_when_deploying
+  - DB_DBNAME=rattic
+  - DB_USERNAME=rattic
+  - DB_PASSWORD=rattic
 nginx:
   image: nginx
   links:
