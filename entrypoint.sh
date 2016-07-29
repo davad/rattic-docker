@@ -4,6 +4,7 @@
 : "${DEBUG:=false}"
 : "${LOGLEVEL:=ERROR}"
 : "${HOSTNAME:=localhost}"
+: "${URLROOT:=/}"
 : "${TIMEZONE:=UTC}"
 : "${SECRETKEY:=areallybadsecretkeypleasechangebeforeusinginproduction}"
 : "${PASSWORD_EXPIRY_DAYS:=360}"
@@ -31,6 +32,7 @@ hostname = $HOSTNAME
 timezone = $TIMEZONE
 secretkey = $SECRETKEY
 passwordexpirydays = $PASSWORD_EXPIRY_DAYS
+urlroot = $URLROOT
 
 [filepaths]
 static = /opt/rattic/static
