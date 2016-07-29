@@ -12,7 +12,7 @@
 : "${DB_PORT:=3306}"
 : "${DB_DBNAME:=rattic}"
 : "${DB_USERNAME:=rattic}"
-: "${LDAP_URI:=ldap://ldap}"
+#: "${LDAP_URI:=ldap://ldap}" # Leave this blank so that LDAP can be disabled
 : "${LDAP_STARTTLS:=false}"
 : "${LDAP_REQCERT:=false}"
 : "${LDAP_BASE:=dc=example,dc=com}"
@@ -51,6 +51,8 @@ password = $DB_PASSWORD
 EOF
 fi
 
+#Begin LDAP config
+if [ -n "$LDAP_URI" ]
 cat >> /opt/rattic/conf/local.cfg <<EOF
 [ldap]
 pwchange = false
@@ -78,6 +80,7 @@ if [ -n "$LDAP_STAFFDN" ]; then
 staff = $LDAP_STAFFDN
 EOF
 fi
+fi # End LDAP
 
 
 cd /opt/rattic
