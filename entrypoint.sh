@@ -51,7 +51,7 @@ password = $DB_PASSWORD
 EOF
 fi
 
-if [ -n "$LDAP_URI" ]
+if [ -n "$LDAP_URI" ]; then
 cat >> /opt/rattic/conf/local.cfg <<EOF
 [ldap]
 pwchange = false
@@ -66,7 +66,6 @@ grouptype = $LDAP_GROUPTYPE
 userfirstname = $LDAP_USERFIRSTNAME
 userlastname = $LDAP_USERLASTNAME
 EOF
-fi
 
 if [ -n "$LDAP_BINDDN" ]; then
     cat >> /opt/rattic/conf/local.cfg <<EOF
@@ -79,6 +78,7 @@ if [ -n "$LDAP_STAFFDN" ]; then
     cat >> /opt/rattic/conf/local.cfg <<EOF
 staff = $LDAP_STAFFDN
 EOF
+fi
 fi
 
 
